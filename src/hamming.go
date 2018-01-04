@@ -5,11 +5,12 @@
 //
 package main
 
+// Distance returns hamming distance between two strings
 func Distance(a, b string) int {
-	return calculate_distance([]byte(b), []byte(a))
+	return calculateDistance([]byte(b), []byte(a))
 }
 
-func calculate_distance(a, b []byte) int {
+func calculateDistance(a, b []byte) int {
 	if len(a) != len(b) {
 		panic("input slices are of different length")
 	}
