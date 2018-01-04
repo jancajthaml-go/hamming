@@ -10,7 +10,7 @@ func main() {
 	}()
 
 	if len(os.Args) != 3 {
-		os.Stderr.Write([]byte("Usage           : ./lev <input> <input>\nValid Example   : ./lev xxx xxy; echo \"$?\"\n"))
+		os.Stderr.Write([]byte("Usage           : ./hamming <input> <input>\nValid Example   : ./hamming xxx xxy; echo \"$?\"\n"))
 		return
 	}
 
