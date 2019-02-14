@@ -24,7 +24,11 @@ func BenchmarkHammingSerial(b *testing.B) {
 
 func TestCalculations(t *testing.T) {
 	expectDistance := func(a string, b string, c int) {
-		d := Distance(a, b)
+		d, err := Distance(a, b)
+		if err != nil {
+			t.Errorf("expected no error but got %+v", err)
+			return
+		}
 		if d != c {
 			t.Errorf("a: `" + a + "`, b: `" + b + "` expected " + string(c+48) + " , got " + string(d+48))
 		}

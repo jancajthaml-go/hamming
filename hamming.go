@@ -5,29 +5,31 @@
 //
 package hamming
 
-// Distance returns hamming distance between two strings
-func Distance(a, b string) int {
-	return calculateDistance([]byte(b), []byte(a))
-}
+import "fmt"
 
-func calculateDistance(a, b []byte) int {
+// Distance returns hamming distance between two strings
+func Distance(a string, b string) (int, error) {
 	if len(a) != len(b) {
-		panic("input slices are of different length")
+		return 0, fmt.Errorf("input slices are of different length")
 	}
+
+	aa := []byte(a)
+	ab := []byte(b)
 
 	var (
 		i     int
-		l     int = len(a)
+		l     int = len(aa)
 		count int
 	)
 
 loop:
 	if i == l {
-		return count
+		return count, nil
 	}
-	if a[i] != b[i] {
+	if aa[i] != ab[i] {
 		count++
 	}
 	i++
 	goto loop
+
 }
