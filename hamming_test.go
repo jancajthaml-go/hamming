@@ -2,26 +2,6 @@ package hamming
 
 import "testing"
 
-func BenchmarkHammingParallel(b *testing.B) {
-	left := "xxxx"
-	right := "xxxy"
-
-	b.RunParallel(func(pb *testing.PB) {
-		for pb.Next() {
-			Distance(left, right)
-		}
-	})
-}
-
-func BenchmarkHammingSerial(b *testing.B) {
-	left := "xxxx"
-	right := "xxxy"
-
-	for n := 0; n < b.N; n++ {
-		Distance(left, right)
-	}
-}
-
 func TestCalculations(t *testing.T) {
 	expectDistance := func(a string, b string, c int) {
 		d, err := Distance(a, b)
@@ -30,7 +10,7 @@ func TestCalculations(t *testing.T) {
 			return
 		}
 		if d != c {
-			t.Errorf("a: `" + a + "`, b: `" + b + "` expected " + string(c+48) + " , got " + string(d+48))
+			t.Errorf("a: `" + a + "`, b: `" + b + "` expected " + string(rune(c+48)) + " , got " + string(rune(d+48)))
 		}
 	}
 
@@ -45,4 +25,24 @@ func TestCalculations(t *testing.T) {
 	expectDistance("ac", "bc", 1)
 	expectDistance("abc", "axc", 1)
 	expectDistance("xabxcdxxefxgx", "1ab2cd34ef5g6", 6)
+}
+
+func BenchmarkHammingSerial(b *testing.B) {
+	left := "xxxx"
+	right := "xxxy"
+
+	for n := 0; n < b.N; n++ {
+		Distance(left, right)
+	}
+}
+
+func BenchmarkHammingParallel(b *testing.B) {
+	left := "xxxx"
+	right := "xxxy"
+
+	b.RunParallel(func(pb *testing.PB) {
+		for pb.Next() {
+			Distance(left, right)
+		}
+	})
 }
