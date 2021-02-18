@@ -8,28 +8,22 @@ package hamming
 import "fmt"
 
 // Distance returns hamming distance between two strings
-func Distance(a string, b string) (int, error) {
-	if len(a) != len(b) {
-		return 0, fmt.Errorf("input slices are of different length")
+func Distance(left string, right string) (int, error) {
+	if len(left) != len(right) {
+		return 0, fmt.Errorf("inputs are of different length")
 	}
-
-	aa := []byte(a)
-	ab := []byte(b)
-
 	var (
 		i     int
-		l     int = len(aa)
+		l     int = len(left)
 		count int
 	)
-
 loop:
 	if i == l {
 		return count, nil
 	}
-	if aa[i] != ab[i] {
+	if left[i] != right[i] {
 		count++
 	}
 	i++
 	goto loop
-
 }
